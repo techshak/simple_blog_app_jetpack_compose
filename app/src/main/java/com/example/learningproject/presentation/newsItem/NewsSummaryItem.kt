@@ -3,6 +3,7 @@ package com.example.learningproject.presentation.newsItem
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -15,15 +16,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.learningproject.R
+import com.example.learningproject.data.remote.dto.PostInfoDto
 
 @Composable
 fun NewsSummaryItem(
-    navController: NavController,
-    viewModel: NewsItemViewModel = hiltViewModel()
+    news:PostInfoDto,
+    onClick: () -> Unit,
 ) {
 
     var favourite by remember {
@@ -32,12 +34,13 @@ fun NewsSummaryItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = MaterialTheme.colors.background)
+            .background(color = Color.LightGray)
+            .clickable( onClick = onClick ),
     ) {
         Card(
             modifier = Modifier
-                .size(100.dp)
-                .padding(5.dp),
+                .padding(5.dp)
+                .size(20.dp),
             shape = CircleShape,
             elevation = 2.dp,
 
@@ -46,23 +49,22 @@ fun NewsSummaryItem(
                 painterResource(id = R.drawable.test),
                 contentDescription = "Station Image",
                 contentScale = ContentScale.FillBounds,
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.size(100.dp)
             )
 
         }
         Box (
             modifier = Modifier
-                .fillMaxWidth()
                 .padding(10.dp)
                 ){
             Column{
                 Text(
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
-                    text = "Headline"
+                    text = news.title
                 )
                 Text(
-                    text = "Details are made up of blah blah blah, nye nye nye"
+                    text = news.body
                 )
 
                 IconToggleButton(

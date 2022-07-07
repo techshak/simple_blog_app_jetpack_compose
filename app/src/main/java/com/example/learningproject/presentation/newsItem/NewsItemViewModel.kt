@@ -1,19 +1,12 @@
 package com.example.learningproject.presentation.newsItem
 
-import android.util.Log
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.learningproject.data.remote.dto.PostInfoDto
-import com.example.learningproject.data.remote.dto.Test
 import com.example.learningproject.repository.PostRepository
-import com.example.learningproject.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,27 +14,19 @@ class NewsItemViewModel @Inject constructor(
     private val postRepository: PostRepository
     ): ViewModel() {
 
-    private val _postList : MutableLiveData<Resource<Test>> = MutableLiveData()
-    val postList: LiveData<Resource<Test>> get() = _postList
+    var postListResponse:List<PostInfoDto> by mutableStateOf(listOf())
 
     init {
         getPosts()
     }
 
-    private fun getPosts()= viewModelScope.launch {
-        _postList.postValue(Resource.Loading())
-        val posts = postRepository.getPosts()
-        Log.d("TAAAAAAAA",posts.body().toString())
-        _postList.postValue(handlePostResponse(posts))
-    }
-
-    private fun handlePostResponse(user: Response<Test>): Resource<Test> {
-
-        if (user.isSuccessful) {
-            user.body()?.let { sentUser ->
-                return Resource.Success(sentUser)
+    private fun getPosts()=
+        viewModelScope.launch {
+            try {
+                val posts = postRepository.getPosts()
+                postListResponse=posts
             }
-        }
-        return Resource.Error(user.message(),null)
+            catch (e:Error){}
     }
+
 }

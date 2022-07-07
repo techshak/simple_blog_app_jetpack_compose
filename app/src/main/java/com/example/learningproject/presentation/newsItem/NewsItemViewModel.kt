@@ -1,5 +1,6 @@
 package com.example.learningproject.presentation.newsItem
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
@@ -10,11 +11,15 @@ import com.example.learningproject.data.remote.dto.PostInfoDto
 import com.example.learningproject.data.remote.dto.Test
 import com.example.learningproject.repository.PostRepository
 import com.example.learningproject.utils.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
-class NewsItemViewModel @Inject constructor(private val postRepository: PostRepository): ViewModel() {
+@HiltViewModel
+class NewsItemViewModel @Inject constructor(
+    private val postRepository: PostRepository
+    ): ViewModel() {
 
     private val _postList : MutableLiveData<Resource<Test>> = MutableLiveData()
     val postList: LiveData<Resource<Test>> get() = _postList
@@ -24,7 +29,9 @@ class NewsItemViewModel @Inject constructor(private val postRepository: PostRepo
     }
 
     private fun getPosts()= viewModelScope.launch {
+        _postList.postValue(Resource.Loading())
         val posts = postRepository.getPosts()
+        Log.d("TAAAAAAAA",posts.body().toString())
         _postList.postValue(handlePostResponse(posts))
     }
 

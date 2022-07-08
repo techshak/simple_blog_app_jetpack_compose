@@ -15,6 +15,7 @@ class NewsItemViewModel @Inject constructor(
     ): ViewModel() {
 
     var postListResponse:List<PostInfoDto> by mutableStateOf(listOf())
+    var isLoading = false
 
     init {
         getPosts()
@@ -22,11 +23,15 @@ class NewsItemViewModel @Inject constructor(
 
     private fun getPosts()=
         viewModelScope.launch {
+            isLoading = true
             try {
                 val posts = postRepository.getPosts()
                 postListResponse=posts
+                isLoading = false
             }
-            catch (e:Error){}
+            catch (e:Error){
+                isLoading = false
+            }
     }
 
 }

@@ -40,7 +40,7 @@ fun NewsSummaryItem(
         Card(
             modifier = Modifier
                 .padding(5.dp)
-                .size(20.dp),
+                .size(100.dp),
             shape = CircleShape,
             elevation = 2.dp,
 

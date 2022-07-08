@@ -1,13 +1,17 @@
 package com.example.learningproject.presentation.newsItem
 
+import android.view.Gravity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -21,6 +25,7 @@ fun NewsListScreen (
     viewModel: NewsItemViewModel = hiltViewModel(),
 ) {
     val posts = viewModel.postListResponse
+    val visibility = viewModel.isLoading
    Row(
        modifier = Modifier
            .fillMaxWidth()
@@ -28,7 +33,8 @@ fun NewsListScreen (
    ) {
        Column (
            modifier = Modifier
-               .fillMaxSize()
+               .fillMaxSize(),
+               horizontalAlignment = Alignment.CenterHorizontally
                ){
            Text(
                text = "Simple Blog App",
@@ -38,8 +44,17 @@ fun NewsListScreen (
                fontStyle = FontStyle.Italic,
                modifier = Modifier
                    .padding(10.dp)
+                   .align(Alignment.Start)
            )
            Spacer(modifier = Modifier.width(4.dp))
+
+           if(visibility){
+               CircularProgressIndicator(
+                   modifier = Modifier
+                       .size(100.dp)
+                       .padding(10.dp)
+               )
+           }
 
            LazyColumn {
                itemsIndexed(

@@ -1,7 +1,5 @@
 package com.example.learningproject.presentation.newsItem
 
-import android.view.Gravity
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -11,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -26,6 +23,7 @@ fun NewsListScreen (
 ) {
     val posts = viewModel.postListResponse
     val visibility = viewModel.isLoading
+
    Row(
        modifier = Modifier
            .fillMaxWidth()

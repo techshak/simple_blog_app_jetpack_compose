@@ -1,4 +1,4 @@
-package com.example.learningproject.presentation
+package com.example.learningproject.presentation.newsdetails
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
@@ -21,11 +21,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.learningproject.R
 
 @Composable
-@Preview
-fun Details (){
+fun NewsDetailsScreen (
+){
     var favourite by remember {
         mutableStateOf(false)
     }
@@ -45,14 +46,11 @@ fun Details (){
 
 
             ) {
-                Image(
-                    painterResource(id = R.drawable.test),
-                    contentDescription = "Station Image",
-                    contentScale = ContentScale.FillBounds,
-                )
+
 
                 Column(
                     modifier = Modifier
+                        .background(Color.Black)
                         .fillMaxSize()
                         .align(Alignment.CenterHorizontally)
                 ) {
@@ -61,7 +59,7 @@ fun Details (){
                             .align(Alignment.CenterHorizontally)
                             .padding(10.dp,20.dp,10.dp,10.dp),
                         text = "Headline says alot of things about blah blah blah",
-                        color = Color.Black,
+                        color = Color.White,
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp
                     )

@@ -35,13 +35,12 @@ fun NewsSummaryItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = Color.LightGray)
+            .padding(5.dp)
             .clickable( onClick = onClick ),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Card(
             modifier = Modifier
-                .padding(5.dp)
                 .size(100.dp),
             shape = CircleShape,
             elevation = 2.dp,
@@ -56,9 +55,12 @@ fun NewsSummaryItem(
         }
         Box (
             modifier = Modifier
-                .padding(10.dp)
+                .padding(10.dp),
                 ){
-            Column{
+            Column(
+                modifier = Modifier
+                    .align(Alignment.Center)
+            ){
                 Text(
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
@@ -68,7 +70,7 @@ fun NewsSummaryItem(
                 )
                 Text(
                     text = news.body,
-                    maxLines = 2,
+                    maxLines = 3,
                     overflow = TextOverflow.Ellipsis,
 
                 )

@@ -29,6 +29,7 @@ fun NewsListScreen (
 ) {
  val state = viewModel.state
 
+
    Row(
        modifier = Modifier
            .fillMaxWidth()
@@ -51,13 +52,13 @@ fun NewsListScreen (
            )
            Spacer(modifier = Modifier.width(4.dp))
 
-//           if(visibility){
-//               CircularProgressIndicator(
-//                   modifier = Modifier
-//                       .size(100.dp)
-//                       .padding(10.dp)
-//               )
-//           }
+           if(state.isLoading){
+               CircularProgressIndicator(
+                   modifier = Modifier
+                       .size(100.dp)
+                       .padding(10.dp)
+               )
+           }
 
            LazyColumn {
                items(state.postList.size){ i ->
@@ -68,8 +69,6 @@ fun NewsListScreen (
                    )
                    if(i < state.postList.size){
                        Divider(
-                           modifier = Modifier
-                               .padding(16.dp )
                        )
                    }
 

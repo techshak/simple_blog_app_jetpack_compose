@@ -23,10 +23,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.learningproject.R
+import com.example.learningproject.data.remote.dto.CommentDto
 
 @Composable
-@Preview
-fun NewsCommentItem () {
+fun NewsCommentItem (
+    comment:CommentDto
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -44,7 +46,7 @@ fun NewsCommentItem () {
             ) {
             Image(
                 painterResource(id = R.drawable.test),
-                contentDescription = "Station Image",
+                contentDescription = "User Image",
                 contentScale = ContentScale.FillBounds,
             )
 
@@ -58,17 +60,15 @@ fun NewsCommentItem () {
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
                     maxLines = 2,
-                    overflow = TextOverflow.Ellipsis,
-                    text = "comment.name"
+                    text = comment.name
                 )
                 Text(
-                    text = "news.body",
-                    maxLines = 2,
+                    text = comment.body,
                     overflow = TextOverflow.Ellipsis,
 
                     )
                 Text(
-                    text = "comment.name",
+                    text = comment.email,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
 

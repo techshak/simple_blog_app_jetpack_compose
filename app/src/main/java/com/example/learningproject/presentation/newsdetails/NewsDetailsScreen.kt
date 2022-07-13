@@ -1,9 +1,10 @@
 package com.example.learningproject.presentation.newsdetails
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Divider
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconToggleButton
@@ -15,21 +16,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import com.example.learningproject.R
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun NewsDetailsScreen (
+    viewModel: CommentsViewModel = hiltViewModel(),
 ){
     var favourite by remember {
         mutableStateOf(false)
     }
+
+    viewModel.getComments(1)
+    val commentState = viewModel.commentState
 
     Column (
         Modifier
@@ -57,7 +58,7 @@ fun NewsDetailsScreen (
                     Text(
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
-                            .padding(10.dp,20.dp,10.dp,10.dp),
+                            .padding(10.dp, 20.dp, 10.dp, 10.dp),
                         text = "Headline says alot of things about blah blah blah",
                         color = Color.White,
                         fontWeight = FontWeight.Bold,
@@ -80,6 +81,22 @@ fun NewsDetailsScreen (
                             modifier = Modifier
                                 .size(20.dp)
                         )
+                    }
+
+                    LazyColumn{
+                        items(commentState.commentList.size){i->
+                            val comment = commentState.commentList[i]
+                            NewsCommentItem(
+                                comment=comment
+                            )
+                            if(i < commentState.commentList.size){
+                                Divider(
+                                    modifier = Modifier
+                                        .padding(16.dp )
+                                )
+                            }
+                        }
+
                     }
                 }
 

@@ -1,6 +1,8 @@
 package com.example.learningproject.di
 
 import com.example.learningproject.data.remote.PostApi
+import com.example.learningproject.repository.comment.CommentRepository
+import com.example.learningproject.repository.comment.CommentRepositoryImpl
 import com.example.learningproject.repository.post.PostRepository
 import com.example.learningproject.repository.post.PostRepositoryImpl
 import dagger.Module
@@ -15,10 +17,18 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideLoginRepository(
+    fun providePostRepository(
         api: PostApi,
     ): PostRepository {
         return PostRepositoryImpl(api)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCommentsRepository(
+        api: PostApi,
+    ): CommentRepository {
+        return CommentRepositoryImpl(api)
     }
 
 }

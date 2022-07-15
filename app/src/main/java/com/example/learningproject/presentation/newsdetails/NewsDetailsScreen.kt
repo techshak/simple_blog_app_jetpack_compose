@@ -100,8 +100,6 @@ fun NewsDetailsScreen (
                     }
                 }
 
-
-
         }
 
     }

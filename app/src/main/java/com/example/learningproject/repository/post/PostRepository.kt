@@ -6,5 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface PostRepository{
     suspend fun getPosts(): Flow<Resource<List<PostInfoDto>>>
+    suspend fun insertFavourite(postInfoDto: PostInfoDto)
+
 
 }

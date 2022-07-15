@@ -5,11 +5,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
-@Entity
+@Entity(tableName = "favourites")
 @Parcelize
 data class PostInfoDto (
     val body: String,
-    @PrimaryKey val id: Int,
+    @PrimaryKey
+    val id: Int,
     val title: String,
     val userId: Int
         ) : Parcelable

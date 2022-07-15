@@ -1,5 +1,6 @@
 package com.example.learningproject.di
 
+import com.example.learningproject.data.local.PostDatabase
 import com.example.learningproject.data.remote.PostApi
 import com.example.learningproject.repository.comment.CommentRepository
 import com.example.learningproject.repository.comment.CommentRepositoryImpl
@@ -19,8 +20,9 @@ object RepositoryModule {
     @Provides
     fun providePostRepository(
         api: PostApi,
+        postDatabase: PostDatabase
     ): PostRepository {
-        return PostRepositoryImpl(api)
+        return PostRepositoryImpl(api,postDatabase)
     }
 
     @Singleton

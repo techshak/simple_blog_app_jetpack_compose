@@ -1,5 +1,6 @@
 package com.example.learningproject.repository.post
 
+import com.example.learningproject.data.local.PostDatabase
 import com.example.learningproject.data.remote.PostApi
 import com.example.learningproject.data.remote.dto.PostInfoDto
 import com.example.learningproject.repository.post.PostRepository
@@ -13,7 +14,8 @@ import javax.inject.Singleton
 
 @Singleton
 class PostRepositoryImpl @Inject constructor(
-    private val api : PostApi
+    private val api : PostApi,
+    private val postDatabase: PostDatabase
 ): PostRepository {
     override suspend fun getPosts(): Flow<Resource<List<PostInfoDto>>>{
       return flow{
@@ -33,4 +35,9 @@ class PostRepositoryImpl @Inject constructor(
             }
       }
     }
+
+    override suspend fun insertFavourite(postInfoDto: PostInfoDto) =
+        postDatabase.getPostsDao().upsert(postInfoDto)
+
+
 }
